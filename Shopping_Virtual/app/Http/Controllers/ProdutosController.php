@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\produtos;
+use App\Models\lojas;
 use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
@@ -12,7 +13,10 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        //
+        $produtos = produtos::with('lojas')->get();
+        $lojas = lojas::all();
+        
+        return view('loja.index', compact('produtos','lojas'));
     }
 
     /**
@@ -20,7 +24,7 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        //
+        return view('loja.create');
     }
 
     /**
@@ -28,7 +32,16 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'descricao'=>'text',
+            'preco'=>'required',
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            
+        ]);
+
+        produtos::create($request->all());
+        return redirect()->route('loja.index');
     }
 
     /**

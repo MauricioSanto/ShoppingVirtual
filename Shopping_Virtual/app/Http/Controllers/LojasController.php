@@ -13,10 +13,10 @@ class LojasController extends Controller
      */
     public function index()
     {
-        $cadastros = lojas::with('User')->get();
+        $lojas = lojas::with('User')->get();
         $users = User::all();
         
-        return view('loja.index', compact('cadastros','users'));
+        return view('loja.index', compact('lojas','users'));
     }
 
     /**
@@ -24,7 +24,7 @@ class LojasController extends Controller
      */
     public function create()
     {
-        //
+        return view('loja.create');
     }
 
     /**
@@ -32,7 +32,17 @@ class LojasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'categoria'=>'required',
+            'cnpj'=>'required',
+            
+            
+        ]);
+
+        lojas::create($request->all());
+        return redirect()->route('loja.index');
+    
     }
 
     /**

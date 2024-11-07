@@ -10,8 +10,8 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Minha Loja</a>
-
+                <!--<a class="navbar-brand" href="{{ url('/') }}">Minha Loja</a>-->
+                <img src="{{ asset('storage/icones/SENAI.png') }}" alt="SENAI" width="100" height="30">
                 <!-- Social Media Links -->
                 <div class="ml-auto">
                     <a href="https://www.instagram.com" target="_blank">
@@ -50,34 +50,17 @@
 
         <!-- Div for Categories in Card Format -->
         <div class="container mt-5">
-            <h2 class="text-center mb-4">Categorias</h2>
+            <h2 class="text-center mb-4">Lojas</h2>
             <div class="row">
-                @foreach ($categorias as $categoria)
+                @foreach ($lojas as $loja)
                     <div class="col-md-3 mb-4">
                         <div class="card">
-                            <img src="{{ asset('images/categorias/' . $categoria->imagem) }}" class="card-img-top" alt="{{ $categoria->nome }}">
+                        <img src="{{ asset('storage/icones/SENAI.png') }}" class="card-img-top" alt="{{ $loja->nome }}" width="100" height="30">
                             <div class="card-body text-center">
-                                <h5 class="card-title">{{ $categoria->nome }}</h5>
-                                <a href="{{ route('categorias.show', $categoria->id) }}" class="btn btn-primary">Ver Produtos</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+                                <h5 class="card-title">{{ $loja->nome }}</h5>
+                                <h5 class="card-title">{{ $loja->categotia }}</h5>
+                                <h5 class="card-title">{{ $loja->cnpj }}</h5>
 
-        <!-- Div for Featured Products in Card Format -->
-        <div class="container mt-5">
-            <h2 class="text-center mb-4">Produtos em Destaque</h2>
-            <div class="row">
-                @foreach ($produtos as $produto)
-                    <div class="col-md-3 mb-4">
-                        <div class="card">
-                            <img src="{{ asset('images/produtos/' . $produto->imagem) }}" class="card-img-top" alt="{{ $produto->nome }}">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">{{ $produto->nome }}</h5>
-                                <p class="card-text">R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
-                                <a href="{{ route('produtos.show', $produto->id) }}" class="btn btn-primary">Ver Detalhes</a>
                             </div>
                         </div>
                     </div>
