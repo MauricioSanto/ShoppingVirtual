@@ -93,4 +93,21 @@ class LojasController extends Controller
     {
         //
     }
+    /** Método para buscar produtos por categoria ou nome
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Busca lojas e produtos que correspondem à consulta
+        $stores = Store::with('products')
+            ->where('name', 'like', "%{$query}%")
+            ->orWhereHas('products', function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%");
+            })
+            ->get();
+
+        // Retorna a view com os resultados da busca
+        return view('shop.index', compact('stores'));
+    }*/
+
 }
