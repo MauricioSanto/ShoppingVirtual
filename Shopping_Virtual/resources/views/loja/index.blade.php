@@ -30,7 +30,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Botão para lojista -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">Acesso do Lojista</a>
+                            <a class="nav-link" href="{{ route('loja.create') }}">Acesso do Lojista</a>
                         </li>
                         <!-- Botão para usuário -->
                         <li class="nav-item">
@@ -49,16 +49,25 @@
         </nav>
 
         <!-- Div for Categories in Card Format -->
+        <!--<div class="card-deck">
+            <div class="card">
+            <img class="card-img-top" src=".../100px200/" alt="Imagem de capa do card">
+            <div class="card-body">
+                <h5 class="card-title">Título do card</h5>
+                <p class="card-text">Este é um card mais longo com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional. Este conteúdo é um pouco maior.</p>
+                <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
+            </div>
+        </div>-->
         <div class="container mt-5">
             <h2 class="text-center mb-4">Lojas</h2>
             <div class="row">
                 @foreach ($lojas as $loja)
                     <div class="col-md-3 mb-4">
                         <div class="card">
-                        <img src="{{ asset('storage/icones/SENAI.png') }}" class="card-img-top" alt="{{ $loja->nome }}" width="100" height="30">
+                            <img src="{{ asset('storage/icones/SENAI.png') }}" class="card-img-top" alt="{{ $loja->nome }}" width="100" height="30">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ $loja->nome }}</h5>
-                                <h5 class="card-title">{{ $loja->categotia }}</h5>
+                                <h5 class="card-title">{{ $loja->categoria }}</h5>
                                 <h5 class="card-title">{{ $loja->cnpj }}</h5>
 
                             </div>

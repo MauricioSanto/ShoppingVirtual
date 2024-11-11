@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\lojas;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LojasController extends Controller
 {
@@ -24,7 +25,9 @@ class LojasController extends Controller
      */
     public function create()
     {
-        return view('loja.create');
+        $lojas = lojas::with('User')->get();
+        $users = User::all();
+        return view('loja.create',compact('lojas','users'));
     }
 
     /**
@@ -33,15 +36,29 @@ class LojasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required',
-            'categoria'=>'required',
-            'cnpj'=>'required',
-            
+            'nome'=>'required',
+            'categoria' => 'required|string|max:255',
+            'cnpj' => 'required|digits:14|unique:lojas,cnpj',
+            'user_id' => 'required|exists:users,id'
             
         ]);
 
-        lojas::create($request->all());
-        return redirect()->route('loja.index');
+        $loja = new Lojas();
+        $loja->nome = $request->input('nome');
+        $loja->categoria = $request->input('categoria');
+        $loja->cnpj = $request->input('cnpj');
+    
+        // Associa automaticamente o user_id ao usuário autenticado
+       // $loja->user_id = auth()->user()->id;
+        $loja->user_id = Auth::user()->id;
+        // Salvando a loja no banco de dados
+        $loja->save();
+    
+        // Redirecionar ou retornar resposta
+        return redirect()->route('loja.index')->with('success', 'Loja criada com sucesso!');
+
+       // lojas::create($request->all());
+        //return redirect()->route('loja.index');
     
     }
 
