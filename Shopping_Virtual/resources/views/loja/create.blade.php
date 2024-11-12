@@ -8,7 +8,7 @@
     <body>
         <h1>Nova Loja</h1>
 
-        <form action="{{ route('loja.store') }}" method="POST">
+        <form action="{{ route('loja.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <label for="">NOME:</label>
             <input type="text" name="nome">
@@ -18,6 +18,9 @@
             </input>
             <label>CATEGORIA:</label>
             <input type="text" name="categoria">
+
+            <label for="">LOGO:</label>
+            <input type="file" name="logo" id="logo" accept="image/*">
 
             <label>CNPJ:</label>
             <input type="text" name="cnpj" pattern="\d{14}" title="O CNPJ deve conter 14 dígitos">

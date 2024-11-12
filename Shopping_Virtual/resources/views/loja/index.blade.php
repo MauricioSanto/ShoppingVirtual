@@ -37,44 +37,51 @@
                             <a class="nav-link" href="{{ route('dashboard') }}">Acesso do Usuário</a>
                         </li>
                         <!-- Botões de login e cadastro -->
+                         
                         <li class="nav-item">
                             <a class="btn btn-outline-primary" href="{{ route('register') }}">Cadastrar</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" >
                             <a class="btn btn-outline-success" href="{{ route('login') }}">Login</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        @if (session('success'))
+            <div>{{ session('success') }}</div>
+        @endif
 
         <!-- Div for Categories in Card Format -->
-        <!--<div class="card-deck">
-            <div class="card">
-            <img class="card-img-top" src=".../100px200/" alt="Imagem de capa do card">
-            <div class="card-body">
-                <h5 class="card-title">Título do card</h5>
-                <p class="card-text">Este é um card mais longo com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional. Este conteúdo é um pouco maior.</p>
-                <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
-            </div>
-        </div>-->
+      
         <div class="container mt-5">
-            <h2 class="text-center mb-4">Lojas</h2>
-            <div class="row">
-                @foreach ($lojas as $loja)
-                    <div class="col-md-3 mb-4">
-                        <div class="card">
-                            <img src="{{ asset('storage/icones/SENAI.png') }}" class="card-img-top" alt="{{ $loja->nome }}" width="100" height="30">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">{{ $loja->nome }}</h5>
-                                <h5 class="card-title">{{ $loja->categoria }}</h5>
-                                <h5 class="card-title">{{ $loja->cnpj }}</h5>
+           
+            @foreach ($lojas as $loja)
+                <ul>
+                    <li class="carousel__item"  style="list-style-type: none">
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="{{ asset('storage/'. $loja->logo) }}" class="card-img-top"  width="80%" height="30%"  margin: 0 auto>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ $loja->nome }}</h5>
+                                    <h5 class="card-title">{{ $loja->categoria }}</h5>
+                                    <h5 class="card-title">{{ $loja->cnpj }}</h5>
+                                    <form action="{{ route('loja.destroy', $loja->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">
+                                            <img src='https://img.icons8.com/?size=100&id=57061&format=png&color=000000' width='35' height='35'>Excluir</img>
+                                        </button>
+                        
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    </li>
+                </ul>
+            @endforeach
+                
         </div>
            
     </body>

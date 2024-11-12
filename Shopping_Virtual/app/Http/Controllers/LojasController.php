@@ -35,21 +35,16 @@ class LojasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome'=>'required',
-            'categoria' => 'required|string|max:255',
-            'cnpj' => 'required|digits:14|unique:lojas,cnpj',
-            'user_id' => 'required|exists:users,id'
-            
-        ]);
+        
 
         $loja = new Lojas();
+        $loja ->logo=$request->file('logo')->store('icones', 'public');
         $loja->nome = $request->input('nome');
         $loja->categoria = $request->input('categoria');
         $loja->cnpj = $request->input('cnpj');
     
         // Associa automaticamente o user_id ao usuário autenticado
-       // $loja->user_id = auth()->user()->id;
+       
         $loja->user_id = Auth::user()->id;
         // Salvando a loja no banco de dados
         $loja->save();
@@ -89,9 +84,11 @@ class LojasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(lojas $lojas)
+    public function destroy($id)
     {
-        //
+        $loja = lojas::find($id);
+        $loja->delete();
+        return redirect()->route('loja.index')->with('success', 'Cliente removido com sucesso.');
     }
     /** Método para buscar produtos por categoria ou nome
     public function search(Request $request)
