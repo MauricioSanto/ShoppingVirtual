@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categoria;
 use App\Models\lojas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,8 +17,9 @@ class LojasController extends Controller
     {
         $lojas = lojas::with('User')->get();
         $users = User::all();
+        $categorias = categoria:: all();
         
-        return view('loja.index', compact('lojas','users'));
+        return view('loja.index', compact('lojas','users','categorias'));
     }
 
     /**
@@ -27,6 +29,7 @@ class LojasController extends Controller
     {
         $lojas = lojas::with('User')->get();
         $users = User::all();
+       
         return view('loja.create',compact('lojas','users'));
     }
 
