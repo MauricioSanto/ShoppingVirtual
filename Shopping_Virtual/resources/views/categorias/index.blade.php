@@ -7,8 +7,19 @@
         <style>
             /* Define altura mínima para garantir que os cards fiquem com o mesmo tamanho */
             .card {
-            height: 80%;
+            width: 250px;
+            height: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column; /* Alinha os filhos verticalmente */
+            justify-content: space-between; /* Distribui o conteúdo */
+            padding: 16px;
+            justify-content: center; /* Alinha verticalmente */
+            align-items: center; /* Alinha horizontalmente */
+            background-color: #F0FFFF;
             }
+            
             /* Garante que o conteúdo do card se expanda igualmente */
             .card-body {
             display: flex;
@@ -32,6 +43,22 @@
             ul {
             gap: 10px; /* Define o espaçamento entre os itens */
             padding-left: 0; /* Remove o padding padrão da ul */
+            }
+            .card-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-self: flex-end; /* Faz o botão ficar na base do card */
+            }
+            .card-container{
+                
+                display: flex; /* Alinha os cards horizontalmente */
+                gap: 20px; /* Espaçamento entre os cards */
+                justify-content: center; /* Centraliza os cards horizontalmente */
+                flex-wrap: wrap; /* Faz com que os cards se ajustem em várias linhas caso o espaço seja pequeno */        
             }
         </style>
     </head>
@@ -70,21 +97,32 @@
         <p>
             <h2>Categoria</h2>
         </p>
-        <div class="container">
-            <div class="row">
-                @foreach ($categorias as $categoria )
-                
+        <div class="card-container">
+            
+            @foreach ($categorias as $categoria )
+                <div class="row">
                     <div class="col-md-6">
-                        <div class="card">
-                            <img src="{{ asset('storage/'. $categoria->imagem) }}" class="card-img-top" alt="{{ $categoria -> nome }}" style="max-width: 20%; height: auto;">
+                        <div class="card" >
+                            <img src="{{ asset('storage/'. $categoria->imagem) }}" class="rounded-circle" alt="{{ $categoria -> nome }}" style="max-width: 50%; height: auto;" />
+                            
                             <div class="card-body">
                                 <h5 class="card-title">{{ $categoria ->nome}}</h5>
+                                <h4><form action="{{ route('categoria.destroy', $categoria->id) }}" method="POST" class="card-btn  btn-danger" >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">
+                                            <img src='https://img.icons8.com/?size=100&id=57061&format=png&color=000000'   width='25' height='25'>Excluir</img>
+                                        </button>
+                                    </form>
+                                </h4>
                             </div>
+                            
                         </div>
                     </div>
-                    
-                @endforeach
-            </div>
+                </div>
+                
+            @endforeach
+            
         </div>
         
     </body>

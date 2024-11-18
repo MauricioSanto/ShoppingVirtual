@@ -5,9 +5,23 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
             /* Define altura mínima para garantir que os cards fiquem com o mesmo tamanho */
-            .card {
-            height: 80%;
+            .card-card {
+            width: 250px;
+            height: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column; /* Alinha os filhos verticalmente */
+            justify-content: space-between; /* Distribui o conteúdo */
+            justify-content: center; /* Alinha verticalmente */
+            align-items: center; /* Alinha horizontalmente */
+            background-color: #F0FFFF;
             }
+            .card{
+                height: 80%;
+            }
+
+            
             /* Garante que o conteúdo do card se expanda igualmente */
             .card-body {
             display: flex;
@@ -15,7 +29,7 @@
             justify-content: space-between;
             }
             .navbar {
-            background-color: rgba(0, 0, 255, 0.1);; /* cor branca com 80% de opacidade */
+            background-color: rgba(0, 0, 255, 0.1); /* cor branca com 80% de opacidade */
             transition: background-color 0.4s ease;
             }
 
@@ -32,29 +46,76 @@
             gap: 10px; /* Define o espaçamento entre os itens */
             padding-left: 0; /* Remove o padding padrão da ul */
             }
+            .card-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-self: flex-end; /* Faz o botão ficar na base do card */
+            }
+            .card-container {
+            display: flex; /* Alinha os cards horizontalmente */
+            gap: 20px; /* Espaçamento entre os cards */
+            justify-content: center; /* Centraliza os cards horizontalmente */
+            flex-wrap: wrap; /* Faz com que os cards se ajustem em várias linhas caso o espaço seja pequeno */
+            }
+            .card-img-top{
+                object-fit: cover
+            }
+            .footer {
+                background-color:  rgba(0, 0, 255, 1);
+                color: white;
+                padding: 30px 0;
+                margin-top: 50px; /* Distância do conteúdo anterior */
+            }
+
+            .footer h5 {
+                color: #fff;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+
+            .footer ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .footer ul li {
+                margin-bottom: 10px;
+            }
+
+            .footer ul li a {
+                color: #ddd;
+                text-decoration: none;
+            }
+
+            .footer ul li a:hover {
+                color: #fff;
+            }
+
+            .footer .col-md-4 {
+                margin-bottom: 20px;
+            }
+
+            .footer .text-center p {
+                font-size: 14px;
+                margin-top: 15px;
+            }
+           
         </style>
     </head>
     <body>
-
+        
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-transparent ">
             <div class="container">
+               
                 <!--<a class="navbar-brand" href="{{ url('/') }}">Minha Loja</a>-->
-                <img src="{{ asset('storage/icones/SENAI.png') }}" alt="SENAI" width="100" height="30">
-                <!-- Social Media Links -->
-                <div class="ml-auto">
-                    <a href="https://www.instagram.com" target="_blank">
-                        <img src="{{ asset('storage/icones/instagram.png') }}" alt="Instagram" width="30" height="30">
-                    </a>
-                    <a href="https://www.facebook.com" target="_blank">
-                        <img src="{{ asset('storage/icones/facebook.png') }}" alt="Facebook" width="30" height="30">
-                    </a>
-                    <a href="https://www.whatsapp.com" target="_blank">
-                        <img src="{{ asset('storage/icones/whatsapp.png') }}" alt="WhatsApp" width="30" height="30">
-                    </a>
-                </div>
-
+                <img src="{{ asset('storage/icones/SENAI.png') }}" alt="SENAI" width="150" height="50">
+             
                 <!-- User and Store Owner Access Buttons -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
@@ -92,6 +153,7 @@
             <div class="row">
                 @foreach ($lojas as $loja)
                     <div class="col-md-3 mb-2">
+                        
                         <div class="card">
                             <img src="{{ asset('storage/'. $loja->logo) }}" class="card-img-top" width="60%" height="30%">
                             <div class="card-body">
@@ -102,32 +164,76 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">
-                                        <img src='https://img.icons8.com/?size=100&id=57061&format=png&color=000000'   width='25' height='25'>Excluir</img>
+                                        <img src='https://img.icons8.com/?size=100&id=57061&format=png&color=000000'   width='25' height='auto'>Excluir</img>
                                     </button>
                                 </form></p>
                                 <a href="#" class="btn btn-primary">Mais detalhes</a>
                             </div>
                         </div>
+                        
                     </div>
                 @endforeach 
             </div>    
         </div>
-        <div class="container">
-            <div class="row">
-                @foreach ($categorias as $categoria )
+        <h5>CATEGORIAS</h5>
+        <div class="card-container ">
+        
+            @foreach ($categorias as $categoria )
                 
+                <div class="row">
+                   
                     <div class="col-md-6">
-                        <div class="card">
-                            <img src="{{ asset('storage/'. $categoria->imagem) }}" class="card-img-top" alt="{{ $categoria -> nome }}" style="max-width: 20%; height: auto;">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $categoria ->nome}}</h5>
+                        <section>
+                           
+                            <div class="card-card">
+                                
+                                <img src="{{ asset('storage/'. $categoria->imagem) }}" class="card-img-top" alt="{{ $categoria -> nome }}" style="max-width: 40%; height: auto;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $categoria ->nome}}</h5>
+                                <!-- <h4><form action="{{ route('categoria.destroy', $categoria->id) }}" method="POST" class="card-btn  btn-danger" >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <img src='https://img.icons8.com/?size=100&id=57061&format=png&color=000000'   width='25' height='25'>Excluir</img>
+                                            </button>
+                                        </form>
+                                    </h4>-->
+                                </div>
+                            
                             </div>
-                        </div>
+                        </section>
                     </div>
-                    
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+            
         </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Seção de links rápidos -->
+                    <div class="col-md-4">
+                        <h5>Links Rápidos</h5>
+                        <ul>
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Sobre</a></li>
+                            <li><a href="">Contato</a></li>
+                            <li><a href="">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <!-- Seção de redes sociais -->
+                    <div class="col-md-4">
+                        <h5>Redes Sociais</h5>
+                        <a href="https://www.instagram.com" target="_blank"><img src="{{ asset('storage/icones/instagram.png') }}" alt="Instagram" width="30" height="30"></a>
+                        <a href="https://www.facebook.com" target="_blank"><img src="{{ asset('storage/icones/facebook.png') }}" alt="Facebook" width="30" height="30"></a>
+                        <a href="https://www.whatsapp.com" target="_blank"><img src="{{ asset('storage/icones/whatsapp.png') }}" alt="WhatsApp" width="30" height="30"></a>
+                    </div>
+                    <!-- Seção de copyright -->
+                    <div class="col-md-4 text-center">
+                        <p>&copy; {{ date('Y') }} Shopping Virtual. Todos os direitos reservados.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
        
            
     </body>
@@ -145,5 +251,6 @@
             }
         };
     </script>
+
    
 </html>
