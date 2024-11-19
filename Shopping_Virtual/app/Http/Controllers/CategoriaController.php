@@ -45,8 +45,12 @@ class CategoriaController extends Controller
     // Exibe os detalhes de uma categoria específica
     public function show($id)
     {
-        $categoria = categoria::findOrFail($id);
-        return view('categorias.show', compact('categoria'));
+         // Encontre a categoria com o ID e carregue as lojas associadas
+         $categoria = Categoria::with('lojas')->findOrFail($id);
+
+         // Retorna a view com a categoria e suas lojas
+         return view('categorias.show', compact('categoria'));
+        
     }
 
     // Exibe o formulário para editar uma categoria existente

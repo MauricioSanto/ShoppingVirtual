@@ -6,8 +6,8 @@
         <style>
             /* Define altura mínima para garantir que os cards fiquem com o mesmo tamanho */
             .card-card {
-            width: 250px;
-            height: 300px;
+            width: 150px;
+            height: 200px ;
             border: 1px solid #ccc;
             border-radius: 8px;
             display: flex;
@@ -67,8 +67,13 @@
             .footer {
                 background-color:  rgba(0, 0, 255, 1);
                 color: white;
-                padding: 30px 0;
-                margin-top: 50px; /* Distância do conteúdo anterior */
+                padding: 20px 0;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                
+               
             }
 
             .footer h5 {
@@ -148,13 +153,13 @@
         @endif
 
         <!-- Div for Categories in Card Format -->
-      
+        
         <div class="container mt-5">
-            <div class="row">
+            <!--<div class="row">
                 @foreach ($lojas as $loja)
                     <div class="col-md-3 mb-2">
-                        
-                        <div class="card">
+                    
+                        <div class="card" >
                             <img src="{{ asset('storage/'. $loja->logo) }}" class="card-img-top" width="60%" height="30%">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $loja->nome }}</h5>
@@ -173,7 +178,7 @@
                         
                     </div>
                 @endforeach 
-            </div>    
+            </div>-->    
         </div>
         <h5>CATEGORIAS</h5>
         <div class="card-container ">
@@ -184,23 +189,17 @@
                    
                     <div class="col-md-6">
                         <section>
-                           
-                            <div class="card-card">
+                            <a href="{{ route('categorias.show', $categoria->id) }}">
+                                <div class="card-card" >
+                                    
+                                    <img src="{{ asset('storage/'. $categoria->imagem) }}"   class="rounded-circle" alt="{{ $categoria -> nome }}" style="max-width: 40%; height: auto;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $categoria ->nome}}</h5>
+                                    
+                                    </div>
                                 
-                                <img src="{{ asset('storage/'. $categoria->imagem) }}" class="card-img-top" alt="{{ $categoria -> nome }}" style="max-width: 40%; height: auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $categoria ->nome}}</h5>
-                                <!-- <h4><form action="{{ route('categoria.destroy', $categoria->id) }}" method="POST" class="card-btn  btn-danger" >
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">
-                                                <img src='https://img.icons8.com/?size=100&id=57061&format=png&color=000000'   width='25' height='25'>Excluir</img>
-                                            </button>
-                                        </form>
-                                    </h4>-->
                                 </div>
-                            
-                            </div>
+                            </a>
                         </section>
                     </div>
                 </div>
@@ -214,10 +213,11 @@
                     <div class="col-md-4">
                         <h5>Links Rápidos</h5>
                         <ul>
+                            
                             <li><a href="">Home</a></li>
                             <li><a href="">Sobre</a></li>
                             <li><a href="">Contato</a></li>
-                            <li><a href="">FAQ</a></li>
+                            
                         </ul>
                     </div>
                     <!-- Seção de redes sociais -->
@@ -251,6 +251,12 @@
             }
         };
     </script>
+    <!--<script>
+        const card = document.querySelector('.card');
+        const CardContainer = document.getElementById('card_container');
+
+        CardContainer.appendChild(card);
+    </script>-->
 
    
 </html>

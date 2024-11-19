@@ -63,9 +63,13 @@ class LojasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(lojas $lojas)
+    public function show($id)
     {
-        //
+         // Encontrar a loja pelo ID
+         $loja = Lojas::findOrFail($id);
+
+         // Retornar a view com os detalhes da loja
+         return view('loja.show', compact('loja'));
     }
 
     /**

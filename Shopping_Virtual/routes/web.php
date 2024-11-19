@@ -19,11 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/loja', [LojasController::class, 'store'])->name('loja.store');
     Route::get('/loja_salvar', [LojasController::class, 'create'])->name('loja.create');
     Route::delete('/loja/{id}', [lojasController::class, 'destroy'])->name('loja.destroy');
+    Route::get('/lojas/{id}', [LojasController::class, 'show'])->name('loja.show');
 
     Route::get('/categoria', [CategoriaController::class, 'index'])->name('categoria.index');
     Route::post('/categoria', [CategoriaController::class, 'store'])->name('categoria.store');
     Route::get('/categoria_salvar', [CategoriaController::class, 'create'])->name('categoria.create');
     Route::delete('/categoria/{id}', [CategoriaController::class, 'destroy'])->name('categoria.destroy');
+    Route::get('/categorias/{id}', [CategoriaController::class, 'show'])->name('categorias.show');
 });
 
 require __DIR__.'/auth.php';

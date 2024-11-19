@@ -1,4 +1,3 @@
-
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -65,54 +64,34 @@
                 </div>
             </div>
         </nav>
-        <p>
-            <h2>Nova Loja</h2>
-        </p>
-       
-        <form action="{{ route('loja.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="card">
-                <div class="form-row">
-                    
-                    <label for="">NOME:</label>
-                    <div class="col">
-                        <input type="text" name="nome">
-                            @foreach( $users as $user)
-                                <option value="{{ $user->id }}">{{ $user->nome}}</option>
-                            @endforeach
-                        </input>
+        <div class="container">
+        <div class="card">
+            <img src="{{ asset('storage/'. $categoria->imagem) }}" alt="{{ $categoria->nome }}" class="rounded-circle" style="max-width: 30%; height: auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{ $categoria->nome }}</h5>
+                <h3>Lojas da Categoria:</h3>
+                @if($categoria->lojas->count() > 0)
+                    <div class="row">
+                        @foreach ($categoria->lojas as $loja)
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="{{ asset('storage/' . $loja->logo) }}" alt="{{ $loja->nome }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $loja->nome }}</h5>
+                                        <p class="card-text">CNPJ: {{ $loja->cnpj }}</p>
+                                        <a href="{{ route('lojas.show', $loja->id) }}" class="btn btn-primary">Ver Detalhes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <label for="">CATEGORIA:</label>
-                    <div class="col">
-                        <input type="text" name="categoria">
-                            @foreach( $categorias as $categoria)
-                                <option value="{{ $categoria->id }}">{{ $categoria->nome}}</option>
-                            @endforeach
-                        </input>
-                    </div>
-                    
-                    <label>CATEGORIA:</label>
-                    <div class="col">
-                        <input type="text" name="categoria">
-                    </div>
-                    <label for="">LOGO:</label>
-                    <div class="col">
-                        <input type="file" name="logo" id="logo" accept="image/*">
-                    </div>
-                    <label>CNPJ:</label>
-                    <div class="col">
-                        <input type="text" name="cnpj" pattern="\d{14}" title="O CNPJ deve conter 14 dígitos">
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </div>
-                    
-                </div>
+                @else
+                    <p>Não há lojas cadastradas para esta categoria.</p>
+                @endif
+              
             </div>
-        </form>
-       
-        
-
+        </div>
+    </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

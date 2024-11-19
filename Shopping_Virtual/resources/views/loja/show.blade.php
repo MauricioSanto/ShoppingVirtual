@@ -1,4 +1,3 @@
-
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -65,54 +64,15 @@
                 </div>
             </div>
         </nav>
-        <p>
-            <h2>Nova Loja</h2>
-        </p>
-       
-        <form action="{{ route('loja.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="card">
-                <div class="form-row">
-                    
-                    <label for="">NOME:</label>
-                    <div class="col">
-                        <input type="text" name="nome">
-                            @foreach( $users as $user)
-                                <option value="{{ $user->id }}">{{ $user->nome}}</option>
-                            @endforeach
-                        </input>
-                    </div>
-                    <label for="">CATEGORIA:</label>
-                    <div class="col">
-                        <input type="text" name="categoria">
-                            @foreach( $categorias as $categoria)
-                                <option value="{{ $categoria->id }}">{{ $categoria->nome}}</option>
-                            @endforeach
-                        </input>
-                    </div>
-                    
-                    <label>CATEGORIA:</label>
-                    <div class="col">
-                        <input type="text" name="categoria">
-                    </div>
-                    <label for="">LOGO:</label>
-                    <div class="col">
-                        <input type="file" name="logo" id="logo" accept="image/*">
-                    </div>
-                    <label>CNPJ:</label>
-                    <div class="col">
-                        <input type="text" name="cnpj" pattern="\d{14}" title="O CNPJ deve conter 14 dígitos">
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </div>
-                    
-                </div>
-            </div>
-        </form>
-       
-        
-
+    
+        <div class="container">
+            <h1>{{ $loja->nome }}</h1>
+            <p>CNPJ: {{ $loja->cnpj }}</p>
+            <img src="{{ asset('storage/' . $loja->logo) }}" alt="{{ $loja->nome }}" class="img-fluid">
+            <p>{{ $loja->descricao }}</p>
+            <a href="{{ route('categorias.show', $loja->categoria->id) }}" class="btn btn-secondary">Voltar para a categoria</a>
+        </div>
+    
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
