@@ -28,7 +28,7 @@
 
             /* Adiciona espaçamento no topo para o conteúdo não ficar atrás da navbar */
             body {
-            padding-top: 30px; /* ajusta conforme a altura da navbar */
+            padding-top: 50px; /* ajusta conforme a altura da navbar */
             }
             ul {
             gap: 10px; /* Define o espaçamento entre os itens */
@@ -82,19 +82,18 @@
                             @endforeach
                         </input>
                     </div>
-                    <label for="">CATEGORIA:</label>
+                    <label for="categoria_id">CATEGORIA:</label>
                     <div class="col">
-                        <input type="text" name="categoria">
+                        <!-- Usando <select> para categorias -->
+                        <select name="categoria_id" id="categoria_id">
+                            <option value="">Selecione uma categoria</option> <!-- Opção de placeholder -->
                             @foreach( $categorias as $categoria)
-                                <option value="{{ $categoria->id }}">{{ $categoria->nome}}</option>
+                                <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
                             @endforeach
-                        </input>
+                        </select>
                     </div>
-                    
-                    <label>CATEGORIA:</label>
-                    <div class="col">
-                        <input type="text" name="categoria">
-                    </div>
+                   
+                
                     <label for="">LOGO:</label>
                     <div class="col">
                         <input type="file" name="logo" id="logo" accept="image/*">

@@ -65,30 +65,32 @@
             </div>
         </nav>
         <div class="container">
-        <div class="card">
-            <img src="{{ asset('storage/'. $categoria->imagem) }}" alt="{{ $categoria->nome }}" class="rounded-circle" style="max-width: 30%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">{{ $categoria->nome }}</h5>
-                <h3>Lojas da Categoria:</h3>
-                @if($categoria->lojas->count() > 0)
-                    <div class="row">
-                        @foreach ($categoria->lojas as $loja)
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img src="{{ asset('storage/' . $loja->logo) }}" alt="{{ $loja->nome }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $loja->nome }}</h5>
-                                        <p class="card-text">CNPJ: {{ $loja->cnpj }}</p>
-                                        <a href="{{ route('lojas.show', $loja->id) }}" class="btn btn-primary">Ver Detalhes</a>
+            <div class="card">
+                <img src="{{ asset('storage/'. $categoria->imagem) }}" alt="{{ $categoria->nome }}" class="rounded-circle" style="max-width: 30%; height: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $categoria->nome }}</h5>
+                    <h3>Lojas da Categoria:</h3>
+                    @if($categoria->lojas->count() > 0)
+                        <div class="row">
+                            @foreach ($categoria->lojas as $loja)
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <img src="{{ asset('storage/' . $loja->logo) }}" alt="{{ $loja->nome }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $loja->nome }}</h5>
+                                            <p class="card-text">CNPJ: {{ $loja->cnpj }}</p>
+                                            
+                                            <a href="{{ route('loja.show', $loja->id) }}" class="btn btn-primary">Ver Detalhes</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <p>Não há lojas cadastradas para esta categoria.</p>
-                @endif
-              
+                            @endforeach
+                        </div>
+                    @else
+                        <p>Não há lojas cadastradas para esta categoria.</p>
+                    @endif
+                
+                </div>
             </div>
         </div>
     </div>

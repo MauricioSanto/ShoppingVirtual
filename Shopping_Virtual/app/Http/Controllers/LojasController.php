@@ -15,7 +15,7 @@ class LojasController extends Controller
      */
     public function index()
     {
-        $lojas = lojas::with('User')->get();
+        $lojas = lojas::with('User','categoria')->get();
         $users = User::all();
         $categorias = categoria:: all();
         
@@ -27,10 +27,11 @@ class LojasController extends Controller
      */
     public function create()
     {
-        $lojas = lojas::with('User')->get();
+        $lojas = lojas::with('User','categoria')->get();
         $users = User::all();
+        $categorias = categoria::all();
        
-        return view('loja.create',compact('lojas','users'));
+        return view('loja.create',compact('lojas','users','categorias'));
     }
 
     /**
@@ -43,8 +44,8 @@ class LojasController extends Controller
         $loja = new Lojas();
         $loja ->logo=$request->file('logo')->store('icones', 'public');
         $loja->nome = $request->input('nome');
-        $loja->categoria = $request->input('categoria');
         $loja->cnpj = $request->input('cnpj');
+        $loja->categoria_id = $request->input('categoria_id');
     
         // Associa automaticamente o user_id ao usuário autenticado
        

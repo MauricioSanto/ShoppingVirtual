@@ -27,7 +27,7 @@
 
             /* Adiciona espaçamento no topo para o conteúdo não ficar atrás da navbar */
             body {
-            padding-top: 30px; /* ajusta conforme a altura da navbar */
+            padding-top: 50px; /* ajusta conforme a altura da navbar */
             }
             ul {
             gap: 10px; /* Define o espaçamento entre os itens */
@@ -66,11 +66,13 @@
         </nav>
     
         <div class="container">
+        
             <h1>{{ $loja->nome }}</h1>
             <p>CNPJ: {{ $loja->cnpj }}</p>
             <img src="{{ asset('storage/' . $loja->logo) }}" alt="{{ $loja->nome }}" class="img-fluid">
             <p>{{ $loja->descricao }}</p>
-            <a href="{{ route('categorias.show', $loja->categoria->id) }}" class="btn btn-secondary">Voltar para a categoria</a>
+            <a href="{{ route('categorias.show', $loja->categoria->id) }}" class="btn btn-primary">Voltar para a categoria</a>
+            
         </div>
     
     </body>

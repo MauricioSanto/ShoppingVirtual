@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class lojas extends Model
 {
-    protected $fillable = ['nome','categoria','cnpj','user_id','logo','categoria_id'];
+    protected $fillable = ['nome','categoria_id','cnpj','user_id','logo'];
     
     public function user() {
         return $this->belongsTo (User::class);
