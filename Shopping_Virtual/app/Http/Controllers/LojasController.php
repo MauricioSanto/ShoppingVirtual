@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\categoria;
 use App\Models\lojas;
 use App\Models\User;
+use App\Models\produtos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,11 +28,12 @@ class LojasController extends Controller
      */
     public function create()
     {
-        $lojas = lojas::with('User','categoria')->get();
+        $lojas = lojas::with('User','categoria','produtos')->get();
         $users = User::all();
         $categorias = categoria::all();
+        $produtos = produtos::all();
        
-        return view('loja.create',compact('lojas','users','categorias'));
+        return view('loja.create',compact('lojas','users','categorias','produtos'));
     }
 
     /**
@@ -41,24 +43,38 @@ class LojasController extends Controller
     {
         
 
+        // Validação dos dados de entrada
+        $validatedData = $request->validate([
+            'nome' => 'required|string|max:255',
+            'cnpj' => 'required|string|unique:lojas,cnpj',
+            'categoria_id' => 'required|exists:categorias,id', // Supondo que você tem uma tabela categorias
+            'logo' => 'required|image|mimes:jpg,jpeg,png,gif', // Valida o tipo de arquivo de logo
+            'preco' => 'required|numeric|min:0',
+            'descricao' => 'nullable|string|max:500',
+        ]);
+
+        // Criação da loja
         $loja = new Lojas();
-        $loja ->logo=$request->file('logo')->store('icones', 'public');
+        $loja->logo = $request->file('logo')->store('icones', 'public');
         $loja->nome = $request->input('nome');
         $loja->cnpj = $request->input('cnpj');
         $loja->categoria_id = $request->input('categoria_id');
-    
-        // Associa automaticamente o user_id ao usuário autenticado
-       
-        $loja->user_id = Auth::user()->id;
-        // Salvando a loja no banco de dados
-        $loja->save();
-    
-        // Redirecionar ou retornar resposta
-        return redirect()->route('loja.index')->with('success', 'Loja criada com sucesso!');
+        $loja->user_id = Auth::user()->id; // Associa automaticamente ao usuário logado
 
-       // lojas::create($request->all());
-        //return redirect()->route('loja.index');
-    
+        // Salvando a loja primeiro
+        $loja->save();
+
+        // Criação do produto associado à loja
+        produtos::create([
+            'loja_id' => $loja->id, // Associa o produto à loja que acabamos de salvar
+            'nome' => $request->input('nome'), // Pode ser o mesmo nome ou o nome do produto, se for diferente
+            'preco' => $request->input('preco'),
+            'descricao' => $request->input('descricao', null), // Caso a descrição seja opcional
+        ]);
+
+        // Retorna ao índice de lojas com uma mensagem de sucesso
+        return redirect()->route('loja.index')->with('success', 'Loja e produto criados com sucesso!');
+        
     }
 
     /**
@@ -97,6 +113,13 @@ class LojasController extends Controller
         $loja = lojas::find($id);
         $loja->delete();
         return redirect()->route('loja.index')->with('success', 'Cliente removido com sucesso.');
+    }
+    public function showProdutos($id)
+    {
+        $loja = Lojas::findOrFail($id);
+        $produtos = $loja->produtos; // Obtém todos os produtos da loja
+
+        return view('Produto.index', compact('loja', 'produtos'));
     }
     /** Método para buscar produtos por categoria ou nome
     public function search(Request $request)

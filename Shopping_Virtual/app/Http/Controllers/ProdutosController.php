@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\produtos;
 use App\Models\lojas;
+use App\Models\categoria;
 use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
@@ -13,10 +14,11 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        $produtos = produtos::with('lojas')->get();
+        $produtos = produtos::with('lojas','categoria')->get();
         $lojas = lojas::all();
+        $categorias = categoria::all();
         
-        return view('loja.index', compact('produtos','lojas'));
+        return view('produto.index', compact('produtos','lojas','categorias'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        return view('loja.create');
+        return view('produto.create');
     }
 
     /**
@@ -41,15 +43,21 @@ class ProdutosController extends Controller
         ]);
 
         produtos::create($request->all());
-        return redirect()->route('loja.index');
+        return redirect()->route('produto.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(produtos $produtos)
+    public function show($id)
     {
-        //
+         // Encontrar o Produto pelo ID
+         $produto = Produtos::findOrFail($id);
+
+         // Retornar a view com os detalhes do produto
+         return view('produto.show', compact('produto'));
+
+         return view('produtos.detalhes', compact('produto'));
     }
 
     /**

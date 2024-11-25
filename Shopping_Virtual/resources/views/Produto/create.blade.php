@@ -1,3 +1,4 @@
+
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -64,18 +65,64 @@
                 </div>
             </div>
         </nav>
-    
-        <div class="container">
+        <p>
+            <h2>Novo produto</h2>
+        </p>
+       
+        <form action="{{ route('produto.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="card">
+                <div class="form-row">
+                    
+                    <label for="">NOME:</label>
+                    <div class="col">
+                        <input type="text" name="nome"> </input>
+                       
+                    </div>
+                    <label for="">Descrição:</label>
+                    <div class="col">
+                        <input type="textarea" name="descricao"> </input>
+                       
+                    </div>
+                    <label>Valor:</label>
+                    <div class="col">
+                        <input type="float" name="preco">
+                    </div>
+                    <label for="">Foto:</label>
+                    <div class="col">
+                        <input type="file" name="imagem" id="imagem" accept="image/*">
+                    </div>
+                    <label for="loja_id">LOJA:</label>
+                    <div class="col">
+                        <!-- Usando <select> para categorias -->
+                        <select name="loja_id" id="loja_id">
+                            <option value="">Selecione uma loja</option> <!-- Opção de placeholder -->
+                            @foreach( $lojas as $loja)
+                                <option value="{{ $loja->id }}">{{ $loja->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <label for="categoria_id">CATEGORIA:</label>
+                    <div class="col">
+                        <!-- Usando <select> para categorias -->
+                        <select name="categoria_id" id="categoria_id">
+                            <option value="">Selecione uma categoria</option> <!-- Opção de placeholder -->
+                            @foreach( $categorias as $categoria)
+                                <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                   
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </form>
+       
         
-            <h1>{{ $loja->nome }}</h1>
-            <p>CNPJ: {{ $loja->cnpj }}</p>
-            <img src="{{ asset('storage/' . $loja->logo) }}" alt="{{ $loja->nome }}" class="img-fluid">
-            <p>{{ $loja->descricao }}</p>
-            <a href="{{ route('loja.produtos', $loja->id) }}" class="btn btn-primary">Ver produtos</a>
-            <a href="{{ route('categorias.show', $loja->categoria->id) }}" class="btn btn-primary">Voltar para a categoria</a>
-            
-        </div>
-    
+
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

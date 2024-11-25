@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class produtos extends Model
 {
-    protected $fillable = ['nome','descricao','preco','imagem','lojas_id'];
+    protected $fillable = ['nome','descricao','preco','imagem','lojas_id','categoria_id'];
     
     public function loja() {
-        return $this->hasMany (lojas::class);
+        return $this->belongsTo (lojas::class);
+    }
+    public function categoria() {
+        return $this->belongsTo (categoria::class);
     }
 }
