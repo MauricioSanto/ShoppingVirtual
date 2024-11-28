@@ -82,6 +82,16 @@
                 <div class="col">
                     <input type="file" name="imagem" id="imagem">
                 </div>
+                <label for="produto_id">Produto:</label>
+                    <div class="col">
+                        <!-- Usando <select> para Produto -->
+                        <select name="produto_id" id="produto_id">
+                        
+                            @foreach( $produtos as $produto)
+                                <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 
                 <div class="col">
                     <button type="submit" class="btn btn-primary">Salvar</button>

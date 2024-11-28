@@ -14,7 +14,7 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        $produtos = produtos::with('lojas','categoria')->get();
+        $produtos = produtos::with('loja','categoria')->get();
         $lojas = lojas::all();
         $categorias = categoria::all();
         
@@ -24,9 +24,21 @@ class ProdutosController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create( Request $request)
     {
-        return view('produto.create');
+        //return view('produto.create');
+
+         // Capturando o ID da loja passada pela URL
+    $lojas_id = $request->query('lojas_id'); // Recebe o 'loja_id' da URL
+
+    // Obter a loja ou redirecionar caso não exista
+    $loja = lojas::findOrFail($lojas_id);
+
+     // Verificando se a loja existe
+     $loja = lojas::findOrFail($lojas_id);
+
+    // Passar a loja para a view de criação de produto
+    return view('produto.create', compact('loja'));
     }
 
     /**
@@ -39,11 +51,19 @@ class ProdutosController extends Controller
             'descricao'=>'text',
             'preco'=>'required',
             'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            
+            'loja_id'=> 'required',
         ]);
 
-        produtos::create($request->all());
-        return redirect()->route('produto.index');
+        // Criando o produto
+        $produto = new produtos();
+        $produto->nome = $request->nome;
+        $produto->descricao = $request->descricao;
+        $produto->preco = $request->preco;
+        $produto->imagem = $request->imagem;
+        $produto->lojas_id = $request->lojas_id; // Associando o produto à loja
+        $produto->save();
+        //produtos::create($request->all());
+        return redirect()->route('produto.create');
     }
 
     /**

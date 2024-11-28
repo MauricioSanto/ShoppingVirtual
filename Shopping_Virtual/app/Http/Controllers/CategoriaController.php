@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categoria;
 use App\Models\lojas;
+use App\Models\produtos;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -13,17 +14,20 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = categoria::with('lojas')->get();
+        $categorias = categoria::with('lojas','produtos')->get();
         $lojas = lojas::all();
+        $produtos = produtos::all();
         
-        return view('categorias.index', compact('lojas','categorias'));
+        return view('categorias.index', compact('categorias','lojas','produtos'));
     }
 
 
     // Exibe o formulário para criar uma nova categoria
     public function create()
     {
-        return view('categorias.create');
+        //return view('categorias.create');
+        $produtos = produtos::all();  // Definindo a variável $produtos
+        return view('categorias.create', compact('produtos'));  // Passando para a view
     }
 
     // Armazena uma nova categoria no banco de dados
@@ -32,6 +36,7 @@ class CategoriaController extends Controller
         
         $categoria = new categoria();
         $categoria->nome = $request->input('nome');
+        $categoria->produto_id = $request->input('produto_id');
         $categoria ->imagem=$request->file('imagem')->store('icones', 'public');
 
         // Salvando a loja no banco de dados

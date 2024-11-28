@@ -11,6 +11,7 @@ class produtos extends Model
     public function loja() {
         return $this->belongsTo (lojas::class);
     }
+
     public function categoria() {
         return $this->belongsTo (categoria::class);
     }

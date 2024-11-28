@@ -92,15 +92,7 @@
                     <div class="col">
                         <input type="file" name="imagem" id="imagem" accept="image/*">
                     </div>
-                    <label for="loja_id">LOJA:</label>
-                    <div class="col">
-                        <!-- Usando <select> para categorias -->
-                        <select name="loja_id" id="loja_id">
-                            <option value="">Selecione uma loja</option> <!-- Opção de placeholder -->
-                            @foreach( $lojas as $loja)
-                                <option value="{{ $loja->id }}">{{ $loja->nome }}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" name="lojas_id" value="{{ $lojas->id }}">
                     </div>
                     <label for="categoria_id">CATEGORIA:</label>
                     <div class="col">
