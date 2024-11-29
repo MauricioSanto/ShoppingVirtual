@@ -92,7 +92,7 @@
                     <div class="col">
                         <input type="file" name="imagem" id="imagem" accept="image/*">
                     </div>
-                        <input type="hidden" name="lojas_id" value="{{ $lojas->id }}">
+                        <input type="hidden" name="lojas_id" value="{{ $loja->id }}">
                     </div>
                     <label for="categoria_id">CATEGORIA:</label>
                     <div class="col">

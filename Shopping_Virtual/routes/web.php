@@ -48,9 +48,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/carrinho/remover/{id}', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
 
     // Página de detalhes do produto
+    Route::get('/produto', [ProdutosController::class, 'index'])->name('produto.index');
     Route::get('/produto/{id}', [ProdutosController::class, 'show'])->name('produto.detalhes');
     Route::post('/produto', [ProdutosController::class, 'store'])->name('produto.store');
-    Route::get('/produto_salvar', [ProdutosController::class, 'create'])->name('produto.create');
+    Route::get('/produto_salvar/{lojas_id}', [ProdutosController::class, 'create'])->name('produto.create');
+    Route::get('/produto/{id}', [ProdutosController::class, 'show'])->name('produto.show');
+    Route::delete('/produto/{id}', [ProdutosController::class, 'destroy'])->name('produto.destroy');
+    
 
 });
 

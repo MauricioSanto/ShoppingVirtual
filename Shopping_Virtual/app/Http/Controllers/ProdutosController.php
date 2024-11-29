@@ -18,27 +18,28 @@ class ProdutosController extends Controller
         $lojas = lojas::all();
         $categorias = categoria::all();
         
-        return view('produto.index', compact('produtos','lojas','categorias'));
+        return view('Produto.index', compact('produtos','lojas','categorias'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create( Request $request)
+    public function create($loja_id )
     {
         //return view('produto.create');
 
          // Capturando o ID da loja passada pela URL
-    $lojas_id = $request->query('lojas_id'); // Recebe o 'loja_id' da URL
+    //$lojas_id = $request->query('lojas_id'); // Recebe o 'lojas_id' da URL
 
     // Obter a loja ou redirecionar caso não exista
-    $loja = lojas::findOrFail($lojas_id);
+    $loja = lojas::findOrFail($loja_id);
+    $categorias = categoria::all();
 
      // Verificando se a loja existe
-     $loja = lojas::findOrFail($lojas_id);
+     //$loja = lojas::findOrFail($lojas_id);
 
     // Passar a loja para a view de criação de produto
-    return view('produto.create', compact('loja'));
+    return view('Produto.create', compact('loja','categorias'));
     }
 
     /**
@@ -46,24 +47,19 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-            'descricao'=>'text',
-            'preco'=>'required',
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'loja_id'=> 'required',
-        ]);
+        
 
         // Criando o produto
         $produto = new produtos();
         $produto->nome = $request->nome;
         $produto->descricao = $request->descricao;
         $produto->preco = $request->preco;
-        $produto->imagem = $request->imagem;
+        $produto->imagem = $request->file('imagem')->store('imagens', 'public');
         $produto->lojas_id = $request->lojas_id; // Associando o produto à loja
+        $produto->categoria_id = $request->categoria_id; // Associando o produto à categoria
         $produto->save();
         //produtos::create($request->all());
-        return redirect()->route('produto.create');
+        return redirect()->route('produto.index');
     }
 
     /**
@@ -72,12 +68,12 @@ class ProdutosController extends Controller
     public function show($id)
     {
          // Encontrar o Produto pelo ID
-         $produto = Produtos::findOrFail($id);
+         $produto = produtos::findOrFail($id);
 
          // Retornar a view com os detalhes do produto
-         return view('produto.show', compact('produto'));
+         return view('Produto.index', compact('produto'));
 
-         return view('produtos.detalhes', compact('produto'));
+         //return view('produtos.detalhes', compact('produto'));
     }
 
     /**
@@ -99,8 +95,10 @@ class ProdutosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(produtos $produtos)
+    public function destroy($id)
     {
-        //
+        $produto = produtos::find($id);
+        $produto->delete();
+        return redirect()->route('produto.index');
     }
 }

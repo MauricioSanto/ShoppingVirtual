@@ -16,6 +16,7 @@
             justify-content: center; /* Alinha verticalmente */
             align-items: center; /* Alinha horizontalmente */
             background-color: #F0FFFF;
+            
             }
             .card{
                 height: 80%;
@@ -27,6 +28,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+           
             }
             .navbar {
             background-color: rgba(0, 0, 255, 0.1); /* cor branca com 80% de opacidade */
@@ -40,7 +42,8 @@
 
             /* Adiciona espaçamento no topo para o conteúdo não ficar atrás da navbar */
             body {
-            padding-top: 30px; /* ajusta conforme a altura da navbar */
+            padding-top: 70px; /* ajusta conforme a altura da navbar */
+           
             }
             ul {
             gap: 10px; /* Define o espaçamento entre os itens */
@@ -60,6 +63,7 @@
             gap: 20px; /* Espaçamento entre os cards */
             justify-content: center; /* Centraliza os cards horizontalmente */
             flex-wrap: wrap; /* Faz com que os cards se ajustem em várias linhas caso o espaço seja pequeno */
+            
             }
             .card-img-top{
                 object-fit: cover
@@ -67,11 +71,12 @@
             .footer {
                 background-color:  rgba(0, 0, 255, 1);
                 color: white;
-                padding: 20px 0;
+                padding: 2px 0;
                 position: fixed;
                 left: 0;
                 bottom: 0;
                 width: 100%;
+             
                 
                
             }
@@ -154,8 +159,8 @@
 
         <!-- Div for Categories in Card Format -->
         
-        <div class="container mt-5">
-            <!--<div class="row">
+        <!--<div class="container mt-5">
+            <div class="row">
                 @foreach ($lojas as $loja)
                     <div class="col-md-3 mb-2">
                     
@@ -178,8 +183,8 @@
                         
                     </div>
                 @endforeach 
-            </div>-->    
-        </div>
+            </div>   
+        </div>--> 
         <h5>CATEGORIAS</h5>
         <div class="card-container ">
         

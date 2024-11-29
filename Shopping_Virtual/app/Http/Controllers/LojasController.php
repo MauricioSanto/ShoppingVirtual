@@ -45,15 +45,7 @@ class LojasController extends Controller
         
 
         // Validação dos dados de entrada
-        $validatedData = $request->validate([
-            'nome' => 'required|string|max:255',
-            'cnpj' => 'required|string|unique:lojas,cnpj',
-            'categoria_id' => 'required|exists:categorias,id', // Supondo que você tem uma tabela categorias
-            'produto_id' => 'required|string|max:255',
-            'logo' => 'required|image|mimes:jpg,jpeg,png,gif', // Valida o tipo de arquivo de logo
-            'preco' => 'required|numeric|min:0',
-            'descricao' => 'nullable|string|max:500',
-        ]);
+        
 
         // Criação da loja
         $loja = new lojas();
@@ -67,9 +59,9 @@ class LojasController extends Controller
         // Salvando a loja primeiro
         $loja->save();
 
-        dd($loja->id);
+        //dd($loja->id);
         // Retorna ao índice de lojas com uma mensagem de sucesso
-        return redirect()->route('produto.create', ['loja_id' => $loja->id]);
+        return redirect()->route('produto.create', ['lojas_id' => $loja->id]);
         //return redirect()->route('loja.index')->with('success', 'Loja  criada  com sucesso!');
         
     }
@@ -80,15 +72,15 @@ class LojasController extends Controller
     public function show($id)
     {
          // Encontrar a loja pelo ID
-         //$loja = Lojas::findOrFail($id);
+         $loja = Lojas::findOrFail($id);
 
          // Retornar a view com os detalhes da loja
-         //return view('loja.show', compact('loja'));
+         return view('loja.show', compact('loja'));
            // Recupera a loja com o id fornecido
         $loja = Lojas::findOrFail($id);
 
         // Recupera todos os produtos da loja
-        $produtos = $loja->produtos;  // Utiliza o relacionamento para buscar os produtos
+        //$produtos = $loja->produtos;  // Utiliza o relacionamento para buscar os produtos
 
         // Passa a loja e os produtos para a view
         return view('lojas.show', compact('loja', 'produtos'));
