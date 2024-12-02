@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(session('carrinho') as $produtoId => $item)
+                    @foreach(session('carrinho') as $produto_Id => $item)
                         <tr>
                             <td>Produto {{$produtoId}}</td> <!-- Aqui você pode puxar o nome do produto do banco -->
                             <td>{{$item['quantidade']}}</td>

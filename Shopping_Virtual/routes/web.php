@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/loja/{id}', [lojasController::class, 'destroy'])->name('loja.destroy');
     Route::get('/lojas/{id}', [LojasController::class, 'show'])->name('loja.show');
         // Página da loja com os produtos
-    //Route::get('/loja/{id}', [LojasController::class, 'showProdutos'])->name('loja.produtos');
+    Route::get('/loja/{id}', [LojasController::class, 'showProdutos'])->name('loja.produtos');
 
     Route::get('/categoria', [CategoriaController::class, 'index'])->name('categoria.index');
     Route::post('/categoria', [CategoriaController::class, 'store'])->name('categoria.store');

@@ -73,17 +73,15 @@ class LojasController extends Controller
     {
          // Encontrar a loja pelo ID
          $loja = Lojas::findOrFail($id);
+         // Recupera todos os produtos da loja
+         $produtos = $loja->produtos;  // Utiliza o relacionamento para buscar os produtos
 
          // Retornar a view com os detalhes da loja
-         return view('loja.show', compact('loja'));
+         return view('loja.show', compact('loja', 'produtos'));
            // Recupera a loja com o id fornecido
-        $loja = Lojas::findOrFail($id);
+    
 
-        // Recupera todos os produtos da loja
-        //$produtos = $loja->produtos;  // Utiliza o relacionamento para buscar os produtos
-
-        // Passa a loja e os produtos para a view
-        return view('lojas.show', compact('loja', 'produtos'));
+       
     }
 
     /**
@@ -109,7 +107,7 @@ class LojasController extends Controller
     {
         $loja = lojas::find($id);
         $loja->delete();
-        return redirect()->route('loja.index')->with('success', 'Cliente removido com sucesso.');
+        return redirect()->route('loja.index')->with('success', 'Loja removida com sucesso.');
     }
     public function showProdutos($id)
     {
